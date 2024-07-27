@@ -44,7 +44,7 @@ const Hero = () => {
     getCurrentLocation();
 
     // Set up an interval to fetch the location every 10 seconds
-    const intervalId = setInterval(getCurrentLocation, 10000);
+    const intervalId = setInterval(getCurrentLocation, 5000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
