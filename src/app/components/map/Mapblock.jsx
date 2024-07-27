@@ -76,7 +76,7 @@ const MapComponent = () => {
   return (
     <div className="relative">
       <h1 className="text-2xl font-medium px-5 absolute z-20">Map</h1>
-      <div className=" sm:w-96 sm:h-96  lg:w-[900px] rounded-3xl overflow-hidden">
+      <div className=" sm:w-96 sm:h-96 md:h-4/5  lg:w-[900px] rounded-3xl overflow-hidden">
         <Map
           ref={mapRef}
           mapboxAccessToken="pk.eyJ1IjoicGF3YW4tc2luZ2giLCJhIjoiY2x5ZTBxdnc3MDlhZzJqczRrNjR0eGRuNSJ9.MH-QYcLcxHV_GhFvABfiNQ"

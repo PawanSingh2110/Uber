@@ -22,26 +22,48 @@ const Hero = () => {
     lat: null,
   });
 
-  const getCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      console.log(position);
-      setUserLocation({
-        ...userlocation,
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-    });
-    // console.log(setUserLocation)
-  };
+  // const getCurrentLocation = () => {
+  //   navigator.geolocation.getCurrentPosition(function (position) {
+  //     console.log(position);
+  //     setUserLocation({
+  //       ...userlocation,
+  //       lat: position.coords.latitude,
+  //       lng: position.coords.longitude,
+  //     });
+  //   });
+  //   // console.log(setUserLocation)
+  // };
 
   useEffect(() => {
-   const location = setInterval(()=>{
+    // Fetch user location every 10 seconds
+    const fetchLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const location = {
+              lng: position.coords.longitude,
+              lat: position.coords.latitude,
+            };
+            setUserLocation(location);
+          },
+          (error) => {
+            console.error("Error fetching location:", error.message);
+          }
+        );
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+    };
 
-     getCurrentLocation();
-   },5000)
-   return () => clearInterval(location);
-  }, [location]);
+    // Fetch location initially
+    fetchLocation();
 
+    const id = setInterval(fetchLocation, 10000);
+    setIntervalId(id);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(id);
+  }, [setUserLocation]);
   return (
     <div>
       <SourceCoordinate.Provider value={{sourcecoords, setSourcecoords}} >
