@@ -35,8 +35,12 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    getCurrentLocation();
-  }, []);
+   const location = setInterval(()=>{
+
+     getCurrentLocation();
+   },5000)
+   return () => clearInterval(location);
+  }, [location]);
 
   return (
     <div>
